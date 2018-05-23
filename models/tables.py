@@ -7,8 +7,18 @@
 # There is an implicit 'id integer autoincrement' field
 # Consult manual for more options, validators, etc.
 
+import datetime
 
+def get_user_email():
+    return auth.user.email if auth.user else None
 
+db.define_table('stocklist',
+                Field('user_email', default=get_user_email()),
+                Field('item'),
+                )
+
+db.stocklist.user_email.writable = False
+db.stocklist.user_email.readable = False
 
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)

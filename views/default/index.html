@@ -11,6 +11,9 @@
   <!-- Here goes your main HTML code. -->
   <div class="main_content">
 	  <div id="vue-div" class="display:none">
+         <div v-if="!logged_in"><h5>Log in to save and keep track of your most wanted items!</h5></div>
+         <br>
+         <h5>Post a link to a singular item:</h5>
 	  	 <form action="#" v-on:submit.prevent="linkSubmit" class="form-horizontal" enctype="multipart/form-data" method="post">
 	  		<input type="text" v-model="url" placeholder="https://www.newegg.com">
 	  		<input type="submit">

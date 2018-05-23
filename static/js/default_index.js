@@ -25,7 +25,8 @@ var app = function() {
         unsafeDelimiters: ['!{', '}'],
         data: {
             linkExists: false,
-            url: ""
+            url: "",
+            logged_in: false
         },
         methods: {
             linkSubmit: self.linkSubmit
