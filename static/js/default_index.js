@@ -18,6 +18,25 @@ var app = function() {
         console.log(self.vue.url);
     }
 
+    $.ajax({
+     type: 'GET',
+     url: "https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2",
+     processData: true,
+     data: {},
+     dataType: "html",
+     crossDomain: true,
+     success: function (data) {
+         processData(data);
+     }
+    });
+
+    function processData(data){
+        //Do some stuff with the data
+        console.log(data);
+        $("#site-loader").html(data);
+    }
+
+    //httpGet("https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2");
     // Complete as needed.
     self.vue = new Vue({
         el: "#vue-div",
