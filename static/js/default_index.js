@@ -14,26 +14,38 @@ var app = function() {
 
     self.linkSubmit = function(){
         self.vue.linkExists = true;
-        console.log("hello");
         console.log(self.vue.url);
+        $.ajax({
+            type: 'GET',
+            url: self.vue.url,
+            processData: true,
+            data: {},
+            dataType: "html",
+            crossDomain: true,
+            success: function (data) {
+             processData(data);
+            }
+        });
     }
-
-    $.ajax({
-     type: 'GET',
-     url: "https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2",
-     processData: true,
-     data: {},
-     dataType: "html",
-     crossDomain: true,
-     success: function (data) {
-         processData(data);
-     }
-    });
 
     function processData(data){
         //Do some stuff with the data
         console.log(data);
+        self.vue.html_data = data
         $("#site-loader").html(data);
+    }
+
+    self.toggle_select = function(){
+        self.vue.is_selecting = !self.vue.is_selecting;
+        if(self.vue.is_selecting){
+            $(document).click(function(event) {
+                var outerHTML = $(event.target).outerHTML;
+                console.dir("wait a minute: " + (event.target).outerHTML);
+                console.log("type of target: " + typeof((event.target).outerHTML));
+                console.log("type of html_data: " + typeof(self.vue.html_data));
+                console.log(self.vue.html_data.includes(outerHTML));
+            });
+        }
     }
 
     //httpGet("https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2");
@@ -45,10 +57,13 @@ var app = function() {
         data: {
             linkExists: false,
             url: "",
-            logged_in: false
+            logged_in: false,
+            is_selecting: false,
+            html_data: null
         },
         methods: {
-            linkSubmit: self.linkSubmit
+            linkSubmit: self.linkSubmit,
+            toggle_select: self.toggle_select
         }
 
     });
