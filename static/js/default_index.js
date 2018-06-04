@@ -48,13 +48,14 @@ var app = function() {
         }
     }
 
-    self.choose_element = function (element) {
+    self.choose_element = function (element, name) {
         self.vue.element_chosen = element;
 
         $.post(choose_element_url,
             {
                 track_element: element,
-                track_url: self.vue.url
+                track_url: self.vue.url,
+                item_name: name
             },
             function(data) {
                 console.log("element added to db");
