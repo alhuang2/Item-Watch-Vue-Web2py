@@ -15,6 +15,8 @@ def get_user_email():
 db.define_table('stocklist',
                 Field('user_email', default=get_user_email()),
                 Field('item'),
+                Field('tracking_url'),
+                Field('tracking_elem')
                 )
 
 db.stocklist.user_email.writable = False
