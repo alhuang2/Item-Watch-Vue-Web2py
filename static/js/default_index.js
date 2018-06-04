@@ -61,7 +61,6 @@ var app = function() {
             }
 
         );
-
     }
 
     //httpGet("https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2");
@@ -75,7 +74,7 @@ var app = function() {
             url: "",
             logged_in: false,
             is_selecting: false,
-            html_data: null
+            html_data: null,
         },
         methods: {
             linkSubmit: self.linkSubmit,
