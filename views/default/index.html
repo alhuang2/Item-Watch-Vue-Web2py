@@ -3,7 +3,8 @@
 {{block head}}
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
-	  var choose_element_url = "{{=URL('api', 'choose_element', user_signature = True)}}";
+	  var choose_element_url = "{{=URL('api', 'choose_element')}}";
+	  var get_items_url = "{{=URL('api', 'choose_element')}}";
 </script>
 {{end}}
 
