@@ -1,9 +1,7 @@
 # Here go your api methods.
 
-<<<<<<< HEAD
-
 #push the url, name, and the element to be tracked into the DB
-def choose_element(): 
+def choose_element():
 
 	element = request.vars.track_element
 	url = request.vars.track_url
@@ -11,7 +9,7 @@ def choose_element():
 
 
 	tracker = db.stocklist.insert(
-		item = name, 
+		item = name,
 		tracking_url = url,
 		tracking_elem = element
 	)
@@ -43,12 +41,10 @@ def get_my_items():
 
 	return response.json(trackedItems)
 
-=======
+
 from bs4 import BeautifulSoup
 
 def queryHTML():
 	soup = BeautifulSoup(request.vars.htmlString, "html.parser")
 	result = soup.find(request.vars.element)
 	logger.info(result)
-	
->>>>>>> 1c67fa7804cce7ee0476e30a812f6e15a7eaa93d
