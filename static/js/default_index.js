@@ -13,28 +13,30 @@ var app = function() {
     };
 
     self.linkSubmit = function(){
-        self.vue.linkExists = true;
+        self.vue.link_submitted = true;
         console.log(self.vue.url);
         $.ajax({
             type: 'GET',
-            name: self.vue.name,
             url: self.vue.url,
             processData: true,
             data: {},
             dataType: "html",
             crossDomain: true,
             success: function (data) {
-             processData(data);
+            processData(data);
             }
         });
     }
 
+    //Takes in HTML string. 
     function processData(data){
-        //Do some stuff with the data
         console.log(data);
         self.vue.html_data = data
         //$('#site-loader').contents().find('body').html(data);
         $("#site-loader").html(data);
+        var end_index = self.vue.url.search(".com/");
+        self.vue.favicon_url = self.vue.url.substring(0, end_index+5);
+        self.vue.favicon_url = self.vue.favicon_url + "favicon.ico";
     }
 
     function queryHTMLdocument(htmlString, element, innerHTML, id, tag, className){
@@ -58,17 +60,23 @@ var app = function() {
         self.vue.is_selecting = !self.vue.is_selecting;
         if(self.vue.is_selecting){
             $("#site-loader").click(function(event) {
-                var outerHTML = (event.target).outerHTML;
+                self.vue.elem = (event.target).outerHTML;
+                self.vue.innerHTML = (event.target).innerHTML;
+                self.vue.elem_id = (event.target).id;
+                self.vue.elem_tag = (event.target).localName;
+                self.vue.elem_className = (event.target).className;
                 console.dir(event.target);
-                var innerHTML = (event.target).innerHTML;
-                var id = (event.target).id;
-                var tag = (event.target).localName;
-                var className = (event.target).className;
-                console.log("innerHTML = " +  innerHTML + '\n' + 
-                    "id: " + id + '\n' + 
-                    'tag: ' +  tag + '\n' + 
-                    'className: ' + className);
-                queryHTMLdocument(self.vue.html_data, outerHTML, innerHTML, id, tag, className);
+                //debugging
+                // var outerHTML = (event.target).outerHTML;
+                // var innerHTML = (event.target).innerHTML;
+                // var id = (event.target).id;
+                // var tag = (event.target).localName;
+                // var className = (event.target).className;
+                // console.log("innerHTML = " +  innerHTML + '\n' + 
+                //     "id: " + id + '\n' + 
+                //     'tag: ' +  tag + '\n' + 
+                //     'className: ' + className);
+                //queryHTMLdocument(self.vue.html_data, outerHTML, innerHTML, id, tag, className);
             });
         }
     }
@@ -109,12 +117,18 @@ var app = function() {
         // The submit button to add a track has been added.
         $.post(add_item_url,
             {
-                name: self.vue.url,
+                name: self.vue.name,
                 url: self.vue.url,
+                elem: self.vue.elem,
+                elem_tag: self.vue.elem_tag,
+                elem_id: self.vue.elem_id,
+                elem_innerHTML: self.vue.elem_innerHTML,
+                elem_className: self.vue.elem_className,
+                favicon_url: self.vue.favicon_url
             },
-            function (data) {
+            function (response) {
                 $.web2py.enableElement($("#add_item_submit"));
-                self.vue.checklist.unshift(data.items);
+                self.vue.checklist.unshift(response.item);
                 self.vue.is_adding_item = false;
                 self.name = '';
                 self.url = '';
@@ -130,12 +144,18 @@ var app = function() {
         unsafeDelimiters: ['!{', '}'],
         data: {
             is_adding_item: false,
-            name: "",
-            linkExists: false,
-            url: "",
             logged_in: false,
             is_selecting: false,
+            link_submitted: false,
             html_data: null,
+            name: "",
+            url: "",
+            favicon_url: "",
+            elem_id: "",
+            elem_className:"",
+            elem_tag: "",
+            elem_innerHTML: "",
+            elem: "",
             item_list: []
         },
         methods: {

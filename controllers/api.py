@@ -41,6 +41,20 @@ def get_my_items():
 
 	return response.json(trackedItems)
 
+def add_item():
+	s_id = db.stocklist.insert(
+		item=request.vars.name,
+		tracking_url=request.vars.url,
+		tracking_elem=request.vars.elem,
+		elem_id=request.vars.elem_id,
+		elem_tag=request.vars.elem_tag,
+		elem_classname=request.vars.elem_classname,
+		elem_innerHTML=request.vars.elem_innerHTML,
+		favicon_url=request.vars.favicon_url
+		)
+	item = db.stocklist(s_id)
+	return response.json(dict(item=item))
+
 
 from bs4 import BeautifulSoup
 

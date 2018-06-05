@@ -16,7 +16,12 @@ db.define_table('stocklist',
                 Field('user_email', default=get_user_email()),
                 Field('item'),
                 Field('tracking_url'),
-                Field('tracking_elem')
+                Field('favicon_url'),
+                Field('tracking_elem'),
+                Field('elem_tag'),
+                Field('elem_id'),
+                Field('elem_classname'),
+            	Field('elem_innerHTML')
                 )
 
 db.stocklist.user_email.writable = False

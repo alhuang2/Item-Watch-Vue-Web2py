@@ -3,9 +3,9 @@
 {{block head}}
 <script src="{{=URL('static', 'js/vue.js')}}"></script>
 <script>
-	  var choose_element_url = "{{=URL('api', 'choose_element')}}";
-	  var get_items_url = "{{=URL('api', 'choose_element')}}";
-		var html_string_url = "{{=URL('api', 'queryHTML')}}"
+	var choose_element_url = "{{=URL('api', 'choose_element')}}";
+	var get_items_url = "{{=URL('api', 'choose_element')}}";
+	var html_string_url = "{{=URL('api', 'queryHTML')}}"
     var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
 </script>
 {{end}}
@@ -25,18 +25,48 @@
 
          {{else:}}
 
-         <h5>Post a link to a singular item: <button class="btn" v-on:click="add_item_button()"><i class="fa fa-plus"></i> Add Item</button></h5>
+         <h5>Post a link to a singular item: 
+         <button class="btn" v-on:click="add_item_button()"><i class="fa fa-plus"></i> Add Item</button></h5>
 
          <div>Testing url: https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2</div>
-         <div></div>
-	  	 <form action="#" v-on:submit.prevent="linkSubmit" class="form-horizontal" enctype="multipart/form-data" method="post">
+         <br>
+	  	 <form v-if="is_adding_item" action="#" v-on:submit.prevent="add_item()" class="form-horizontal" enctype="multipart/form-data" method="post">
             <h6>Name of item:</h6>
             <input type="text" v-model="name" placeholder="Nvidia GTX 1070">
             <h6>Url to item</h6>
-	  		<input type="text" v-model="url" placeholder="https://www.newegg.com">
+	  		<input type="text" v-model="url" @blur="linkSubmit" placeholder="https://www.newegg.com">
+			<button v-if="!is_selecting && link_submitted" @click="toggle_select()" >Turn On Select Mode</button>
+			<button v-if="is_selecting && link_submitted" @click="toggle_select()" >Turn Off Select Mode</button>
 	  		<input class="btn btn-primary" id="add_item_submit" type="submit" value="Submit" />
             <!-- <input type="submit"> -->
 	  	</form>
+
+	  	<div v-if="is_selecting && link_submitted" id="site-loader"><body></body></div>
+
+		<!-- <h4 v-if="logged_in">Private Memos:</h4>
+		<div v-for="cl in checklists" v-if="logged_in" class="memo">
+		<div class="memo_text">
+		  <div class="memo_title">${cl.title}</div>
+		  <div class="memo_content">${cl.memo}</div>
+		</div>
+		<div>
+		  <div class="button_list" :disabled="!check_user(cl)"
+		  v-bind:class="{'disabled':!check_user(cl)}">
+		    <div class="buttons">
+		      <a class="btn rounded red" v-on:click="public_toggle(cl._idx)">
+		        <i v-if="cl.is_public" class="fa fa-users"></i>
+		        <i v-if="!cl.is_public" class="fa fa-user"></i>
+		      </a>
+		      <a class="btn rounded" v-on:click="edit_checklist_button(cl._idx)">
+		        <i class="fa fa-edit fa-lg"></i>
+		      </a>
+		      <a class="btn rounded red" v-on:click="delete_checklist(cl._idx)">
+		        <i class="fa fa-trash-o"></i>
+		      </a>
+		    </div>
+		  </div>
+		</div>
+		</div> -->
 
         <!-- displaying all user's items name and urls : uncomment when rest is set up-->
 
@@ -71,12 +101,6 @@
           </div>
         </form>
       </div> -->
-
-
-
-	  	<button v-if="!is_selecting" @click="toggle_select()" >Turn On Select Mode</button>
-	  	<button v-if="is_selecting" @click="toggle_select()" >Turn Off Select Mode</button>
-	  	<div id="site-loader"><body></body></div>
         {{pass}}
 	  </div>
   </div>
