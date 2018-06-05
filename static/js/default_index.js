@@ -17,6 +17,7 @@ var app = function() {
         console.log(self.vue.url);
         $.ajax({
             type: 'GET',
+            name: self.vue.name,
             url: self.vue.url,
             processData: true,
             data: {},
