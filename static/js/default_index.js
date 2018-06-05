@@ -63,7 +63,7 @@ var app = function() {
             },
             function (data) {
                 $.web2py.enableElement($("#add_item_submit"));
-                self.vue.checklist.unshift(data.checklist);
+                self.vue.checklist.unshift(data.items);
                 self.vue.is_adding_item = false;
                 self.name = '';
                 self.url = '';
@@ -84,7 +84,8 @@ var app = function() {
             url: "",
             logged_in: false,
             is_selecting: false,
-            html_data: null
+            html_data: null,
+            item_list: []
         },
         methods: {
             add_item_button: self.add_item_button,
