@@ -36,15 +36,24 @@ var app = function() {
         $("#site-loader").html(data);
     }
 
+    function queryHTMLdocument(htmlString, element){
+        $.post(html_string_url,
+        {
+            htmlString: htmlString,
+            element: element
+        },
+        function(response){
+            console.log("success");
+        })
+    }
+
+    //TODO for @jaisal: put outerHTML (the element) into the database.
     self.toggle_select = function(){
         self.vue.is_selecting = !self.vue.is_selecting;
         if(self.vue.is_selecting){
-            $(document).click(function(event) {
-                var outerHTML = $(event.target).outerHTML;
-                console.dir("wait a minute: " + (event.target).outerHTML);
-                console.log("type of target: " + typeof((event.target).outerHTML));
-                console.log("type of html_data: " + typeof(self.vue.html_data));
-                console.log(self.vue.html_data.includes(outerHTML));
+            $("#site-loader").click(function(event) {
+                var outerHTML = (event.target).outerHTML;
+                queryHTMLdocument(self.vue.html_data, outerHTML);
             });
         }
     }
@@ -106,17 +115,13 @@ var app = function() {
         unsafeDelimiters: ['!{', '}'],
         data: {
             is_adding_item: false,
-            name: '',
+            name: "",
             linkExists: false,
             url: "",
             logged_in: false,
             is_selecting: false,
             html_data: null,
-<<<<<<< HEAD
-            item_list: [],
-=======
             item_list: []
->>>>>>> 13a906e84e92d79ae26e35ea797dd0dc757134da
         },
         methods: {
             add_item_button: self.add_item_button,
