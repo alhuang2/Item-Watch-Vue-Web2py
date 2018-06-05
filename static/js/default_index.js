@@ -33,14 +33,20 @@ var app = function() {
         //Do some stuff with the data
         console.log(data);
         self.vue.html_data = data
+        //$('#site-loader').contents().find('body').html(data);
         $("#site-loader").html(data);
     }
 
-    function queryHTMLdocument(htmlString, element){
+    function queryHTMLdocument(htmlString, element, innerHTML, id, tag, className){
+        console.log(element);
         $.post(html_string_url,
         {
             htmlString: htmlString,
-            element: element
+            element: element,
+            innerHTML: innerHTML,
+            id: id,
+            tag: tag,
+            className: className
         },
         function(response){
             console.log("success");
@@ -53,7 +59,16 @@ var app = function() {
         if(self.vue.is_selecting){
             $("#site-loader").click(function(event) {
                 var outerHTML = (event.target).outerHTML;
-                queryHTMLdocument(self.vue.html_data, outerHTML);
+                console.dir(event.target);
+                var innerHTML = (event.target).innerHTML;
+                var id = (event.target).id;
+                var tag = (event.target).localName;
+                var className = (event.target).className;
+                console.log("innerHTML = " +  innerHTML + '\n' + 
+                    "id: " + id + '\n' + 
+                    'tag: ' +  tag + '\n' + 
+                    'className: ' + className);
+                queryHTMLdocument(self.vue.html_data, outerHTML, innerHTML, id, tag, className);
             });
         }
     }
