@@ -13,21 +13,70 @@
   <!-- Here goes your main HTML code. -->
   <div class="main_content">
 	  <div id="vue-div" class="display:none">
-         <div v-if="!logged_in"><h5>Log in to save and keep track of your most wanted items!</h5></div>
-         <br>
-         <h5>Post a link to a singular item:</h5>
+         <!-- <div v-if="!logged_in"><h5>Log in to save and keep track of your most wanted items!</h5></div>
+         <br> -->
+
+         {{if auth.user is None:}}
+
+         <h5>Log in to save and keep track of your most wanted items!</h5>
+
+         {{else:}}
+
+         <h5>Post a link to a singular item: <button class="btn" v-on:click="add_item_button()"><i class="fa fa-plus"></i> Add Item</button></h5>
+
          <div>Testing url: https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2</div>
+         <div></div>
 	  	 <form action="#" v-on:submit.prevent="linkSubmit" class="form-horizontal" enctype="multipart/form-data" method="post">
+            <h6>Name of item:</h6>
+            <input type="text" v-model="name" placeholder="Nvidia GTX 1070">
+            <h6>Url to item</h6>
 	  		<input type="text" v-model="url" placeholder="https://www.newegg.com">
-	  		<input type="submit">
+	  		<input class="btn btn-primary" id="add_item_submit" type="submit" value="Submit" />
+            <!-- <input type="submit"> -->
 	  	</form>
+
+        <!-- displaying all user's items name and urls : uncomment when rest is set up-->
+
+        <!-- <div class="item" v-for="item in item_list">
+          <div class="item_text">
+            <div class="item_title">${item.name}</div>
+            <div class="item_url">${item.url}</div>
+          </div>
+          <button class="btn" v-on:click="whatever_method(item.url)">Check item<button>
+        </div> -->
+
+
+
+        <!-- <div v-if="is_adding_item" id="add_item_div">
+        <form action="#" v-on:submit.prevent="linkSubmit" class="form-horizontal" enctype="multipart/form-data" method="post">
+          <div class="form-group" id="no_table_title__row">
+            <div>
+              <input class="form-control string" id="no_table_title" v-model="form_title" placeholder="Name of item" type="text" />
+              <span class="help-block"></span>
+            </div>
+          </div>
+          <div class="form-group" id="no_table_memo__row">
+            <div>
+              <input class="form-control string" id="no_table_memo" name="memo" type="text" v-model="form_url" placeholder="https://www.newegg.com"/>
+              <span class="help-block"></span>
+            </div>
+          </div>
+          <div class="form-group" id="submit_checklist__row">
+            <div>
+              <input class="btn btn-primary" id="add_checklist_submit" type="submit" value="Submit" />
+            </div>
+          </div>
+        </form>
+      </div> -->
+
+
 
 	  	<button v-if="!is_selecting" @click="toggle_select()" >Turn On Select Mode</button>
 	  	<button v-if="is_selecting" @click="toggle_select()" >Turn Off Select Mode</button>
 	  	<div id="site-loader"></div>
+        {{pass}}
 	  </div>
   </div>
-
 </div>
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>

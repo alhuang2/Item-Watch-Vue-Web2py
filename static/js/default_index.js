@@ -17,6 +17,7 @@ var app = function() {
         console.log(self.vue.url);
         $.ajax({
             type: 'GET',
+            name: self.vue.name,
             url: self.vue.url,
             processData: true,
             data: {},
@@ -74,6 +75,28 @@ var app = function() {
             }
         );
     }
+    self.add_item_button = function () {
+        // The button to add a track has been pressed.
+        console.log(self.vue.is_adding_item);
+        self.vue.is_adding_item = !self.vue.is_adding_item;
+    };
+
+    self.add_item = function () {
+        // The submit button to add a track has been added.
+        $.post(add_item_url,
+            {
+                name: self.vue.url,
+                url: self.vue.url,
+            },
+            function (data) {
+                $.web2py.enableElement($("#add_item_submit"));
+                self.vue.checklist.unshift(data.items);
+                self.vue.is_adding_item = false;
+                self.name = '';
+                self.url = '';
+                // self.get_items(); // write this method
+            });
+    };
 
     //httpGet("https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2");
     // Complete as needed.
@@ -82,14 +105,22 @@ var app = function() {
         delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
         data: {
+            is_adding_item: false,
+            name: '',
             linkExists: false,
             url: "",
             logged_in: false,
             is_selecting: false,
             html_data: null,
+<<<<<<< HEAD
             item_list: [],
+=======
+            item_list: []
+>>>>>>> 13a906e84e92d79ae26e35ea797dd0dc757134da
         },
         methods: {
+            add_item_button: self.add_item_button,
+            add_item: self.add_item,
             linkSubmit: self.linkSubmit,
             toggle_select: self.toggle_select,
             get_items: self.get_items
