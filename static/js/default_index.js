@@ -27,8 +27,8 @@ var app = function() {
                 processData(data);
             },
             error: function(data) {
+                var url = parseURI(self.vue.url);
                 self.vue.favicon_url = url + '/favicon.ico';
-                console.log("the favicon url is now: " + self.vue.favicon_url);
             }
         });
     }
@@ -166,6 +166,8 @@ var app = function() {
 
     self.add_item = function () {
         // The submit button to add a track has been added.
+        var url = self.parseURI(self.vue.url);
+        self.vue.favicon_url = url + '/favicon.ico';
         console.log("Favicon url in add_item " + self.vue.favicon_url);
         $.post(add_item_url,
             {
