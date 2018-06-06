@@ -52,12 +52,14 @@
 
 	  	<div id="site-loader"><body></body></div>
 
+
+        <h5>List of my items:</h5>
 	  	<div v-for="item in item_list">
 	  		<div class="card" style="width: 350px;">
 			  <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">
 			  <div class="card-body">
-			    <h5 class="card-title">${item.name}</h5>
-			    <p class="card-text">${item.url}</p>
+			    <h5 class="card-title">Item: ${item.name}</h5>
+			    <p class="card-text">URL: ${item.url}</p>
 			    <p class="card-text">${item.element}</p>
 			    <a href="#" class="btn btn-primary">Go somewhere</a>
 			  </div>
