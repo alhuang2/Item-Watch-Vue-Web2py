@@ -7,6 +7,7 @@
 	var get_items_url = "{{=URL('api', 'get_my_items', user_signature=True)}}";
 	var html_string_url = "{{=URL('api', 'queryHTML')}}"
     var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
+    var check_item_url = "{{=URL('api', 'verify')}}"
 </script>
 {{end}}
 
@@ -52,8 +53,8 @@
 
 	  	<div id="site-loader"><body></body></div>
 
-
         <h5>List of my items:</h5>
+	  	<a class="btn btn-primary">Refresh All</a>
 	  	<div v-for="item in item_list">
 	  		<div class="card" style="width: 350px;">
 			  <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">
@@ -61,21 +62,10 @@
 			    <h5 class="card-title">Item: ${item.name}</h5>
 			    <p class="card-text">URL: ${item.url}</p>
 			    <p class="card-text">${item.element}</p>
-			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			    <a href="#" class="btn btn-primary" @click="refresh_one(item._idx)">Refresh</a>
 			  </div>
 			</div>
 	  	</div>
-
-        <!-- displaying all user's items name and urls : uncomment when rest is set up-->
-
-        <!-- <div class="item" v-for="item in item_list">
-          <div class="item_text">
-            <div class="item_title">${item.name}</div>
-            <div class="item_url">${item.url}</div>
-          </div>
-          <button class="btn" v-on:click="whatever_method(item.url)">Check item<button>
-        </div> -->
-
         {{pass}}
 	  </div>
   </div>

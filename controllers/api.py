@@ -1,4 +1,5 @@
 # Here go your api methods.
+import json
 
 #push the url, name, and the element to be tracked into the DB
 def choose_element():
@@ -32,7 +33,11 @@ def get_my_items():
 			url = item.tracking_url,
 			element = item.tracking_elem,
 			name = item.item,
-			favicon_url = item.favicon_url
+			favicon_url = item.favicon_url,
+			tag = item.elem_tag,
+			className = item.elem_classname,
+			elem_id = item.elem_id,
+			innerHTML = item.elem_innerHTML
 		)
 		trackedItems.append(tracker)
 
@@ -68,29 +73,23 @@ def queryHTML():
 	result = soup.find(request.vars.tag, id=request.vars.id, text=request.vars.innerHTML)
 	logger.info("RESULT \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 	logger.info(result)
-	if result is None:
-		status = "404"
-	else:
-		status = verify(result)
+	# if result is None:
+	# 	status = "404"
+	# else:
+	# 	status = verify(result)
 	return response.json(dict(element=element))
 
 #TODO: verify that the element is the same as the database element
-def verify(element):
-	logger.info("Verify does nothing right now")
-	return "200"
+def verify():
+	status = ""
+	result = None
+	logger.info(type(request.vars.item))
+	item = json.load(request.vars.item)
+	soup = BeautifulSoup(request.vars.htmlString, "html.parser")
+	result = soup.find(request.vars.item.tag, id=request.vars.item.elem_id, text=request.vars.innerHTML)
+	if result is not None:
+		status = "same"
+	else:
+		status = "changed"
+	return status
 
-# def find_tag(element):
-# 	space_index = element.find(' ')
-# 	tag="Error"
-# 	tag = element[1:space_index]
-# 	if tag.find('>') != -1:
-# 		right_carrot_index = tag.find('>')
-# 		tag = tag[:right_carrot_index]
-# 	logger.info("tag: %s", tag)
-# 	return tag
-
-# def find_element_text(element):
-# 	start_index = element.find('>')
-# 	if start_index != -1:
-# 		end_index = element.find('<', start_index+1)
-# 		text = element[start_index+1:end_index]
