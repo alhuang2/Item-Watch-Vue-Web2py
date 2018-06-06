@@ -77,6 +77,9 @@ var app = function() {
                    $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
                 }); */
             });
+            $("#site-loader").hover(function(){
+                $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
+            });
                 //debugging
                 // var outerHTML = (event.target).outerHTML;
                 // var innerHTML = (event.target).innerHTML;
