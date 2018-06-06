@@ -62,7 +62,6 @@ var app = function() {
         })
     }
 
-    //TODO for @jaisal: put outerHTML (the element) into the database.
     self.toggle_select = function(){
         self.vue.is_selecting = !self.vue.is_selecting;
         if(self.vue.is_selecting){
@@ -143,11 +142,32 @@ var app = function() {
                 self.vue.item_list.unshift(response.item);
                 enumerate(self.vue.item_list);
                 self.vue.is_adding_item = false;
-                self.name = '';
-                self.url = '';
+                self.vue.name = '';
+                self.vue.url = '';
                 self.get_items(); // write this method
             });
     };
+
+    self.refresh_one = function(idx){
+        $.ajax({
+            type: 'GET',
+            url: self.vue.item_list[idx].url,
+            processData: true,
+            data: {},
+            dataType: "html",
+            crossDomain: true,
+            success: function (data) {
+                $.post(check_item_url, 
+                {
+                    item: JSON.stringify(self.vue.item_list[idx]),
+                    htmlString: data
+                },
+                function(response){
+                    console.log(response);
+                })
+            }
+        });
+    }
 
     //httpGet("https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2");
     // Complete as needed.
@@ -176,7 +196,8 @@ var app = function() {
             add_item: self.add_item,
             linkSubmit: self.linkSubmit,
             toggle_select: self.toggle_select,
-            get_items: self.get_items
+            get_items: self.get_items,
+            refresh_one: self.refresh_one
         },
         mounted: function(){
             self.get_items();

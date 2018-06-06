@@ -7,6 +7,7 @@
 	var get_items_url = "{{=URL('api', 'get_my_items', user_signature=True)}}";
 	var html_string_url = "{{=URL('api', 'queryHTML')}}"
     var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
+    var check_item_url = "{{=URL('api', 'verify')}}"
 </script>
 {{end}}
 
@@ -45,6 +46,7 @@
 
 	  	<div id="site-loader"><body></body></div>
 
+	  	<a class="btn btn-primary">Refresh All</a>
 	  	<div v-for="item in item_list">
 	  		<div class="card" style="width: 350px;">
 			  <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">
@@ -52,7 +54,7 @@
 			    <h5 class="card-title">${item.name}</h5>
 			    <p class="card-text">${item.url}</p>
 			    <p class="card-text">${item.element}</p>
-			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			    <a href="#" class="btn btn-primary" @click="refresh_one(item._idx)">Refresh</a>
 			  </div>
 			</div>
 	  	</div>
