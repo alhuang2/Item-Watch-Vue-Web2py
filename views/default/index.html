@@ -6,7 +6,7 @@
 	var choose_element_url = "{{=URL('api', 'choose_element')}}";
 	var get_items_url = "{{=URL('api', 'get_my_items', user_signature=True)}}";
 	var html_string_url = "{{=URL('api', 'queryHTML')}}"
-    var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
+  var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
 </script>
 {{end}}
 
@@ -52,7 +52,7 @@
 			    <h5 class="card-title">${item.name}</h5>
 			    <p class="card-text">${item.url}</p>
 			    <p class="card-text">${item.element}</p>
-			    <a href="#" class="btn btn-primary">Go somewhere</a>
+			    <a href="#" class="btn btn-primary" v-on:click = "parseURI(item.url)">Refresh <i class = "fa fa-refresh"> </i> </a>
 			  </div>
 			</div>
 	  	</div>

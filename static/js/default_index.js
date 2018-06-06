@@ -24,14 +24,18 @@ var app = function() {
             dataType: "html",
             crossDomain: true,
             success: function (data) {
-            processData(data);
+                processData(data);
+            },
+            error: function(data) {
+                self.vue.favicon_url = url + '/favicon.ico';
+                console.log("the favicon url is now: " + self.vue.favicon_url);
             }
         });
     }
 
     //Takes in HTML string. 
     function processData(data){
-        console.log(data);
+        // console.log(data);
         self.vue.html_data = data
         //$('#site-loader').contents().find('body').html(data);
         $("#site-loader").html(data);
@@ -40,6 +44,9 @@ var app = function() {
         console.log("editedURL: " + editedURL);
         var end_index = editedURL.search(".com/");
         console.log(end_index);
+        var favicon = self.parseURI(self.vue.url);
+
+        console.log("favicon: ", favicon); 
         self.vue.favicon_url = editedURL.substring(0, end_index+5);
         console.log("Substring: " + self.vue.favicon_url);
         self.vue.favicon_url = 'https://' + self.vue.favicon_url + "favicon.ico";
@@ -61,6 +68,39 @@ var app = function() {
             console.log("success");
         })
     }
+
+
+
+    self.parseURI = function (url) 
+    {
+
+        // var uri = new URI(url);
+        // console.log(uri);
+        var parser = document.createElement('a');
+        // parser.href = self.vue.url;
+        parser.href = url;
+
+        console.log(parser.href);
+        console.log(parser.protocol);
+        console.log(parser.hostname);
+        // console.log(parser.port);
+        console.log(parser.pathname);
+        // console.log(parser.hash);
+        console.log(parser.host);
+
+
+        var string = parser.protocol + parser.hostname;
+        return string;
+
+
+    }
+
+
+
+
+
+
+
 
     //TODO for @jaisal: put outerHTML (the element) into the database.
     self.toggle_select = function(){
@@ -176,7 +216,8 @@ var app = function() {
             add_item: self.add_item,
             linkSubmit: self.linkSubmit,
             toggle_select: self.toggle_select,
-            get_items: self.get_items
+            get_items: self.get_items,
+            parseURI: self.parseURI
         },
         mounted: function(){
             self.get_items();
