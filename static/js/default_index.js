@@ -73,6 +73,10 @@ var app = function() {
                 self.vue.elem_tag = (event.target).localName;
                 self.vue.elem_className = (event.target).className;
                 console.dir(event.target);
+                /* $("#site-loader").hover(function(){
+                   $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
+                }); */
+            });
                 //debugging
                 // var outerHTML = (event.target).outerHTML;
                 // var innerHTML = (event.target).innerHTML;
@@ -84,7 +88,6 @@ var app = function() {
                 //     'tag: ' +  tag + '\n' + 
                 //     'className: ' + className);
                 //queryHTMLdocument(self.vue.html_data, outerHTML, innerHTML, id, tag, className);
-            });
         }
         else{
             $("#site-loader").hide();

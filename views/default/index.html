@@ -48,13 +48,12 @@
 			<button type="button" v-if="!is_selecting && link_submitted" @click="toggle_select()" >Turn On Select Mode</button>
 			<button type="button" v-if="is_selecting && link_submitted" @click="toggle_select()" >Turn Off Select Mode</button>
 	  		<input class="btn btn-primary" id="add_item_submit" type="submit" value="Submit" />
-            <!-- <input type="submit"> -->
 	  	</form>
 
 	  	<div id="site-loader"><body></body></div>
 
+        <h5>Check for changes in all my items: <a class="btn btn-primary">Refresh All</a></h5>
         <h5>List of my items:</h5>
-	  	<a class="btn btn-primary">Refresh All</a>
 	  	<div v-for="item in item_list">
 	  		<div class="card" style="width: 350px;">
 			  <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">
@@ -62,7 +61,7 @@
 			    <h5 class="card-title">Item: ${item.name}</h5>
 			    <p class="card-text">URL: ${item.url}</p>
 			    <p class="card-text">${item.element}</p>
-			    <a href="#" class="btn btn-primary" @click="refresh_one(item._idx)">Refresh</a>
+			    <h5>Check for changes in this item: <a href="#" class="btn btn-primary" @click="refresh_one(item._idx)">Refresh</a></h5>
 			  </div>
 			</div>
 	  	</div>
