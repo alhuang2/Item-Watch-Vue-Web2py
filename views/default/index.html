@@ -32,8 +32,9 @@
 
          {{else:}}
 
+         <br>
          <h5>Post a link to a singular item: 
-         <button class="btn" v-on:click="add_item_button()"><i class="fa fa-plus"></i> Add Item</button></h5>
+         <button class="btn btn-success" v-on:click="add_item_button()"><i class="fa fa-plus"></i> Add Item</button></h5>
 
          <div>Testing url: https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2</div>
 	  	 <form v-if="is_adding_item" action="#" v-on:submit.prevent="add_item()" class="form-horizontal" enctype="multipart/form-data" method="post">
@@ -48,7 +49,7 @@
 
 	  	<div id="site-loader"><body></body></div>
 
-        <h5>Check for changes in all my items: <a class="btn btn-primary && fa fa-refresh"> Refresh All</a></h5>
+        <h5>Check for changes in all my items: <a class="btn btn-secondary && fa fa-refresh"> Refresh All</a></h5>
         <h5>List of my items:</h5>
 	  	<div v-for="item in item_list">
 	  		<div class="card" style="width: 350px;">
@@ -58,7 +59,9 @@
 			    <p class="card-text">URL: ${item.url}</p>
 			    <p class="card-text">${item.element}</p>
                 <div class="button-list">
-                    <a href="#" class="btn btn-primary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</a>
+                    <a href="#" class="btn btn-secondary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</a>
+                    <!-- write delete function -->
+                    <a href="#" class="btn btn-danger && fa fa-trash" @click="refresh_one(item._idx)"> Delete</a>
                     <!-- write edit function -->
                     <a href="#" class="btn btn-primary && fa fa-edit" @click="edit_one(item._idx)"> Edit</a>
                 </div>
