@@ -36,10 +36,13 @@ var app = function() {
         //$('#site-loader').contents().find('body').html(data);
         $("#site-loader").html(data);
         console.log("url: " + self.vue.url);
-        var editedURL = self.vue.url.substring(7);
+        var editedURL = self.vue.url.substring(8);
+        console.log("editedURL: " + editedURL);
         var end_index = editedURL.search(".com/");
+        console.log(end_index);
         self.vue.favicon_url = editedURL.substring(0, end_index+5);
-        self.vue.favicon_url = 'https:/' + editedURL + "/favicon.ico";
+        console.log("Substring: " + self.vue.favicon_url);
+        self.vue.favicon_url = 'https://' + self.vue.favicon_url + "favicon.ico";
         console.log("Favicon url: " + self.vue.favicon_url);
     }
 
