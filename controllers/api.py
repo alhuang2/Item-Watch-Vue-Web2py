@@ -3,23 +3,23 @@
 #push the url, name, and the element to be tracked into the DB
 def choose_element():
 
-	element = request.vars.track_element
-	url = request.vars.track_url
-	name = request.vars.item_name
+	# element = request.vars.track_element
+	# url = request.vars.track_url
+	# name = request.vars.item_name
 
 
-	tracker = db.stocklist.insert(
-		item = name,
-		tracking_url = url,
-		tracking_elem = element
-	)
+	# tracker = db.stocklist.insert(
+	# 	item = name,
+	# 	tracking_url = url,
+	# 	tracking_elem = element
+	# )
 
 	logger.info(tracker)
 
 	return ("OK");
 
 
-
+@auth.requires_signature()
 def get_my_items():
 
 	trackedItems = []
@@ -28,18 +28,18 @@ def get_my_items():
 
 	for item in stocks:
 		tracker = dict (
+			id=item.id,
 			url = item.tracking_url,
 			element = item.tracking_elem,
-			name = item.item
+			name = item.item,
+			favicon_url = item.favicon_url
 		)
-
-		logger.info(tracker)
 		trackedItems.append(tracker)
 
-	logger.info("this the list of items you have tracked")
-	logger.info(trackedItems);
+	# logger.info("this the list of items you have tracked")
+	# logger.info(trackedItems);
 
-	return response.json(trackedItems)
+	return response.json(dict(list_items=trackedItems))
 
 def add_item():
 	s_id = db.stocklist.insert(

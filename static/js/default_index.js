@@ -5,6 +5,8 @@ var app = function() {
 
     Vue.config.silent = false; // show all warnings
 
+    var enumerate = function(v) { var k=0; return v.map(function(e) {e._idx = k++;});};
+
     // Extends an array
     self.extend = function(a, b) {
         for (var i = 0; i < b.length; i++) {
@@ -14,7 +16,6 @@ var app = function() {
 
     self.linkSubmit = function(){
         self.vue.link_submitted = true;
-        console.log(self.vue.url);
         $.ajax({
             type: 'GET',
             url: self.vue.url,
@@ -34,9 +35,12 @@ var app = function() {
         self.vue.html_data = data
         //$('#site-loader').contents().find('body').html(data);
         $("#site-loader").html(data);
-        var end_index = self.vue.url.search(".com/");
-        self.vue.favicon_url = self.vue.url.substring(0, end_index+5);
-        self.vue.favicon_url = self.vue.favicon_url + "favicon.ico";
+        console.log("url: " + self.vue.url);
+        var editedURL = self.vue.url.substring(7);
+        var end_index = editedURL.search(".com/");
+        self.vue.favicon_url = editedURL.substring(0, end_index+5);
+        self.vue.favicon_url = 'https:/' + editedURL + "/favicon.ico";
+        console.log("Favicon url: " + self.vue.favicon_url);
     }
 
     function queryHTMLdocument(htmlString, element, innerHTML, id, tag, className){
@@ -59,6 +63,7 @@ var app = function() {
     self.toggle_select = function(){
         self.vue.is_selecting = !self.vue.is_selecting;
         if(self.vue.is_selecting){
+            $("#site-loader").show();
             $("#site-loader").click(function(event) {
                 self.vue.elem = (event.target).outerHTML;
                 self.vue.innerHTML = (event.target).innerHTML;
@@ -79,6 +84,9 @@ var app = function() {
                 //queryHTMLdocument(self.vue.html_data, outerHTML, innerHTML, id, tag, className);
             });
         }
+        else{
+            $("#site-loader").hide();
+        }
     }
 
     self.choose_element = function (element, name) {
@@ -86,9 +94,8 @@ var app = function() {
 
         $.post(choose_element_url,
             {
-                track_element: element,
-                track_url: self.vue.url,
-                item_name: name
+                element:element,
+                name:name
             },
             function(data) {
                 console.log("element added to db");
@@ -101,9 +108,10 @@ var app = function() {
     self.get_items = function ()
     {
         $.getJSON(get_items_url,
-            function(data) {
-                self.vue.item_list = data
-                console.log(data);
+            function(response) {
+                self.vue.item_list = response.list_items;
+                enumerate(self.vue.item_list);
+                console.log(self.vue.item_list);
             }
         );
     }
@@ -115,6 +123,7 @@ var app = function() {
 
     self.add_item = function () {
         // The submit button to add a track has been added.
+        console.log("Favicon url in add_item " + self.vue.favicon_url);
         $.post(add_item_url,
             {
                 name: self.vue.name,
@@ -127,12 +136,13 @@ var app = function() {
                 favicon_url: self.vue.favicon_url
             },
             function (response) {
-                $.web2py.enableElement($("#add_item_submit"));
-                self.vue.checklist.unshift(response.item);
+                //$.web2py.enableElement($("#add_item_submit"));
+                self.vue.item_list.unshift(response.item);
+                enumerate(self.vue.item_list);
                 self.vue.is_adding_item = false;
                 self.name = '';
                 self.url = '';
-                // self.get_items(); // write this method
+                self.get_items(); // write this method
             });
     };
 
@@ -150,7 +160,7 @@ var app = function() {
             html_data: null,
             name: "",
             url: "",
-            favicon_url: "",
+            favicon_url: '',
             elem_id: "",
             elem_className:"",
             elem_tag: "",
@@ -164,10 +174,15 @@ var app = function() {
             linkSubmit: self.linkSubmit,
             toggle_select: self.toggle_select,
             get_items: self.get_items
+        },
+        mounted: function(){
+            self.get_items();
         }
 
     });
 
+    //self.get_items();
+    self.choose_element("stuff", "stuff");
     return self;
 };
 
