@@ -58,7 +58,7 @@
 			  <div class="card-body">
 			    <h5 class="card-title">Item: ${item.name}</h5>
 			    <p class="card-text">URL: ${item.url}</p>
-			    <p class="card-text">${item.element}</p>
+			    <p class="card-text">Item tag: ${item.element}</p>
                 <div class="button-list">
                     <a href="#" class="btn btn-secondary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</a>
                     <!-- write delete function -->
@@ -66,8 +66,6 @@
                     <!-- write edit function -->
                     <a href="#" class="btn btn-primary && fa fa-edit" @click="edit_one(item._idx)"> Edit</a>
                 </div>
-			    <!-- <h5>Check for changes in this item: <a href="#" class="btn btn-primary" @click="refresh_one(item._idx)">Refresh</a></h5>
-                <h5>Edit name of item: <a href="#" class="btn btn-primary" @click="edit_one(item._idx)">edit</a></h5> -->
 			  </div>
 			</div>
 	  	</div>
