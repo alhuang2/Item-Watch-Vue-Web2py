@@ -62,8 +62,19 @@ div#site-loader{
 	width: auto;
 }
 
-video#bgvid{
-	position:relative;
+div#get-started-overlay{
+	position:absolute;
+	top:0;
+	width:100%;
+	color:white;
+	margin-top:50vh;
+	text-align:center;
+	font-size: 500%;
+	cursor: pointer;
+}
+
+div#get-started-overlay{
+	z-index:10;
 }
 
 
