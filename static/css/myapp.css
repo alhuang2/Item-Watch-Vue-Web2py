@@ -66,6 +66,8 @@ div#site-loader{
 	border:1px solid lightblue;
 	padding:10px;
 	width: auto;
+  word-wrap: break-word;
+  height: auto;
 }
 
 div#get-started-overlay{
