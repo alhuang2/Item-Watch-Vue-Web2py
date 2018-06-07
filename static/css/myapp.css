@@ -159,6 +159,7 @@ body {
   position: relative;
   border: 1px solid #ccc;
   padding: 20px;
+  background-color: white;
 }
 
 #wzd-content {
