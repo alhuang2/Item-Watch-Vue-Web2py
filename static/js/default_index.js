@@ -146,6 +146,7 @@ var app = function() {
                 self.vue.url = '';
                 self.get_items(); // write this method
             });
+            $('#site-loader').hide();
     };
 
     self.refresh_one = function(idx){
@@ -157,9 +158,15 @@ var app = function() {
             dataType: "html",
             crossDomain: true,
             success: function (data) {
+                console.log(data);
+                console.log(self.vue.item_list[idx].tracking_elem);
                 $.post(check_item_url, 
                 {
-                    item: JSON.stringify(self.vue.item_list[idx]),
+                    tag: self.vue.item_list[idx].tag,
+                    elem_id: self.vue.item_list[idx].elem_id,
+                    innerHTML: self.vue.item_list[idx].innerHTML,
+                    id: self.vue.item_list[idx].id,
+                    tracking_elem: self.vue.item_list[idx].tracking_elem,
                     htmlString: data
                 },
                 function(response){
@@ -167,6 +174,12 @@ var app = function() {
                 })
             }
         });
+    }
+
+    self.refresh_all = function(){
+        for(var i=0; i<self.vue.item_list.length; i++){
+            self.refresh_one(i);
+        }
     }
 
     //httpGet("https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2");
@@ -197,7 +210,8 @@ var app = function() {
             linkSubmit: self.linkSubmit,
             toggle_select: self.toggle_select,
             get_items: self.get_items,
-            refresh_one: self.refresh_one
+            refresh_one: self.refresh_one,
+            refresh_all: self.refresh_all
         },
         mounted: function(){
             self.get_items();
@@ -206,7 +220,6 @@ var app = function() {
     });
 
     //self.get_items();
-    self.choose_element("stuff", "stuff");
     return self;
 };
 

@@ -53,7 +53,7 @@
 
 	  	<div id="site-loader"><body></body></div>
 
-	  	<a class="btn btn-primary">Refresh All</a>
+	  	<a class="btn btn-primary" @click="refresh_all()">Refresh All</a>
 	  	<div v-for="item in item_list">
 	  		<div class="card" style="width: 350px;">
 			  <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">

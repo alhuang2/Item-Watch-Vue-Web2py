@@ -37,7 +37,8 @@ def get_my_items():
 			tag = item.elem_tag,
 			className = item.elem_classname,
 			elem_id = item.elem_id,
-			innerHTML = item.elem_innerHTML
+			innerHTML = item.elem_innerHTML,
+			tracking_elem = item.tracking_elem
 		)
 		trackedItems.append(tracker)
 
@@ -55,7 +56,7 @@ def add_item():
 		elem_tag=request.vars.elem_tag,
 		elem_classname=request.vars.elem_classname,
 		elem_innerHTML=request.vars.elem_innerHTML,
-		favicon_url=request.vars.favicon_url
+		favicon_url=request.vars.favicon_url,
 		)
 	item = db.stocklist(s_id)
 	return response.json(dict(item=item))
@@ -83,11 +84,18 @@ def queryHTML():
 def verify():
 	status = ""
 	result = None
-	logger.info(type(request.vars.item))
-	item = json.load(request.vars.item)
 	soup = BeautifulSoup(request.vars.htmlString, "html.parser")
-	result = soup.find(request.vars.item.tag, id=request.vars.item.elem_id, text=request.vars.innerHTML)
-	if result is not None:
+	result = soup.find(request.vars.tag, id=request.vars.elem_id, text=request.vars.innerHTML)
+	logger.info("RESULT \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+	logger.info(result)
+	logger.info("Tracking elem \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+	logger.info(request.vars.tracking_elem)
+	logger.info(result == request.vars.tracking_elem)
+	logger.info('<b><div style="display:block;text-align:left"><br/></div>How to graph Sines and Cosines</b>' == '<b><div style="display:block;text-align:left"><br></div>How to graph Sines and Cosines</b>')
+	if result == None:
+		status = "changed"
+		return status
+	if result == request.vars.tracking_elem:
 		status = "same"
 	else:
 		status = "changed"
