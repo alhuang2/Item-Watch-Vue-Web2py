@@ -1,4 +1,5 @@
 # Here go your api methods.
+import json
 
 
 @auth.requires_signature()
@@ -14,7 +15,12 @@ def get_my_items():
 			url = item.tracking_url,
 			element = item.tracking_elem,
 			name = item.item,
-			favicon_url = item.favicon_url
+			favicon_url = item.favicon_url,
+			tag = item.elem_tag,
+			className = item.elem_classname,
+			elem_id = item.elem_id,
+			innerHTML = item.elem_innerHTML,
+			tracking_elem = item.tracking_elem
 		)
 		trackedItems.append(tracker)
 
@@ -32,7 +38,7 @@ def add_item():
 		elem_tag=request.vars.elem_tag,
 		elem_classname=request.vars.elem_classname,
 		elem_innerHTML=request.vars.elem_innerHTML,
-		favicon_url=request.vars.favicon_url
+		favicon_url=request.vars.favicon_url,
 		)
 	item = db.stocklist(s_id)
 	return response.json(dict(item=item))
@@ -50,22 +56,38 @@ def queryHTML():
 	result = soup.find(request.vars.tag, id=request.vars.id, text=request.vars.innerHTML)
 	logger.info("RESULT \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 	logger.info(result)
-	if result is None:
-		status = "404"
-	else:
-		status = verify(result)
+	# if result is None:
+	# 	status = "404"
+	# else:
+	# 	status = verify(result)
 	return response.json(dict(element=element))
 
 #TODO: verify that the element is the same as the database element
-def verify(element):
-	logger.info("Verify does nothing right now")
-	return "200"
+def verify():
+	status = ""
+	result = None
+	soup = BeautifulSoup(request.vars.htmlString, "html.parser")
+	result = soup.find(request.vars.tag, id=request.vars.elem_id, text=request.vars.innerHTML)
+	logger.info("RESULT \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+	logger.info(result)
+	logger.info("Tracking elem \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+	logger.info(request.vars.tracking_elem)
+	logger.info(result == request.vars.tracking_elem)
+	logger.info('<b><div style="display:block;text-align:left"><br/></div>How to graph Sines and Cosines</b>' == '<b><div style="display:block;text-align:left"><br></div>How to graph Sines and Cosines</b>')
+	if result == None:
+		status = "changed"
+		return status
+	if result == request.vars.tracking_elem:
+		status = "same"
+	else:
+		status = "changed"
+	return status
 
 
 @auth.requires_signature()
 def delete_item():
 	item_id = request.vars.id
-	
+
 
 	item = db(db.stocklist.id == item_id).select().first();
 	logger.info("before delete");
@@ -85,26 +107,3 @@ def delete_item():
 	item.delete();
 
 	return ("OK")
-
-
-
-
-
-
-
-
-# def find_tag(element):
-# 	space_index = element.find(' ')
-# 	tag="Error"
-# 	tag = element[1:space_index]
-# 	if tag.find('>') != -1:
-# 		right_carrot_index = tag.find('>')
-# 		tag = tag[:right_carrot_index]
-# 	logger.info("tag: %s", tag)
-# 	return tag
-
-# def find_element_text(element):
-# 	start_index = element.find('>')
-# 	if start_index != -1:
-# 		end_index = element.find('<', start_index+1)
-# 		text = element[start_index+1:end_index]

@@ -33,7 +33,7 @@ var app = function() {
         });
     }
 
-    //Takes in HTML string. 
+    //Takes in HTML string.
     function processData(data){
         // console.log(data);
         self.vue.html_data = data
@@ -46,7 +46,7 @@ var app = function() {
         console.log(end_index);
         var favicon = self.parseURI(self.vue.url);
 
-        console.log("favicon: ", favicon); 
+        console.log("favicon: ", favicon);
         self.vue.favicon_url = editedURL.substring(0, end_index+5);
         console.log("Substring: " + self.vue.favicon_url);
         self.vue.favicon_url = 'https://' + self.vue.favicon_url + "favicon.ico";
@@ -71,7 +71,7 @@ var app = function() {
 
 
 
-    self.parseURI = function (url) 
+    self.parseURI = function (url)
     {
 
         // var uri = new URI(url);
@@ -118,18 +118,24 @@ var app = function() {
                 self.vue.elem_tag = (event.target).localName;
                 self.vue.elem_className = (event.target).className;
                 console.dir(event.target);
+                /* $("#site-loader").hover(function(){
+                   $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
+                }); */
+            });
+            $("#site-loader").hover(function(){
+                $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
+            });
                 //debugging
                 // var outerHTML = (event.target).outerHTML;
                 // var innerHTML = (event.target).innerHTML;
                 // var id = (event.target).id;
                 // var tag = (event.target).localName;
                 // var className = (event.target).className;
-                // console.log("innerHTML = " +  innerHTML + '\n' + 
-                //     "id: " + id + '\n' + 
-                //     'tag: ' +  tag + '\n' + 
+                // console.log("innerHTML = " +  innerHTML + '\n' +
+                //     "id: " + id + '\n' +
+                //     'tag: ' +  tag + '\n' +
                 //     'className: ' + className);
                 //queryHTMLdocument(self.vue.html_data, outerHTML, innerHTML, id, tag, className);
-            });
         }
         else{
             $("#site-loader").hide();
@@ -189,16 +195,49 @@ var app = function() {
                 self.vue.item_list.unshift(response.item);
                 enumerate(self.vue.item_list);
                 self.vue.is_adding_item = false;
-                self.name = '';
-                self.url = '';
+                self.vue.name = '';
+                self.vue.url = '';
                 self.get_items(); // write this method
             });
+            $('#site-loader').hide();
     };
 
+    self.refresh_one = function(idx){
+        $.ajax({
+            type: 'GET',
+            url: self.vue.item_list[idx].url,
+            processData: true,
+            data: {},
+            dataType: "html",
+            crossDomain: true,
+            success: function (data) {
+                console.log(data);
+                console.log(self.vue.item_list[idx].tracking_elem);
+                $.post(check_item_url,
+                {
+                    tag: self.vue.item_list[idx].tag,
+                    elem_id: self.vue.item_list[idx].elem_id,
+                    innerHTML: self.vue.item_list[idx].innerHTML,
+                    id: self.vue.item_list[idx].id,
+                    tracking_elem: self.vue.item_list[idx].tracking_elem,
+                    htmlString: data
+                },
+                function(response){
+                    console.log(response);
+                })
+            }
+        });
+    }
+
+    self.refresh_all = function(){
+        for(var i=0; i<self.vue.item_list.length; i++){
+            self.refresh_one(i);
+        }
+    }
 
     self.delete_item = function(id) {
         console.log("the db id is : " + id);
-        $.post(delete_item_url, 
+        $.post(delete_item_url,
             {
                 id: id
             },
@@ -208,7 +247,8 @@ var app = function() {
         );
 
         self.get_items();
-    }
+      }
+
 
     //httpGet("https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2");
     // Complete as needed.
@@ -238,6 +278,8 @@ var app = function() {
             linkSubmit: self.linkSubmit,
             toggle_select: self.toggle_select,
             get_items: self.get_items,
+            refresh_one: self.refresh_one,
+            refresh_all: self.refresh_all,
             delete_item: self.delete_item
         },
         mounted: function(){
@@ -247,7 +289,6 @@ var app = function() {
     });
 
     //self.get_items();
-    self.choose_element("stuff", "stuff");
     return self;
 };
 
