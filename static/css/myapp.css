@@ -47,7 +47,7 @@ div#site-loader{
 	overflow: auto;
 	border: 5px solid black;
 	border-radius: 10px;
-	width:auto;
+	width:95%;
 	height:auto;
 }
 .col-md-1 {
@@ -83,13 +83,14 @@ div#get-started-overlay{
 @import url(https://raw.github.com/FortAwesome/Font-Awesome/master/docs/assets/css/font-awesome.min.css);
 
 #wrap {
-  margin: 50px 100px;
   display: inline-block;
   position: relative;
   height: 60px;
   float: right;
   padding: 0;
-  position: relative;
+  margin-top:50px;
+  margin-right:25%;
+  margin-bottom:50px;
 }
 
 input#search[type="text"] {
@@ -118,7 +119,7 @@ input#search[type="text"]:focus:hover {
 }
 
 input#search[type="text"]:focus {
-  width: 700px;
+  width: 50vw;
   z-index: 1;
   border-bottom: 1px solid #BBB;
   cursor: text;
