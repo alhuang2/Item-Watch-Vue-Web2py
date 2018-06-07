@@ -17,7 +17,6 @@
 
 <title>183 Project</title>
 <div class="main_content">
-
   <!-- Here goes your main HTML code. -->
   <div class="main_content">
 	  <div id="vue-div" class="display:none">
@@ -26,7 +25,7 @@
          <h5>Log in to save and keep track of your most wanted items!</h5>
 
          {{else:}}
-         <div class="container" id="info">
+         <div class="container" id="info" style="background-size: 100%; background-image:url('https://www.internblitz.com/static/images/loading1.gif')">
             <div class="row">
               <div class="col-md-12">
                 <div id="wizard">
@@ -126,7 +125,7 @@
         <h5>Check for changes in all my items: <a class="btn btn-secondary && fa fa-refresh" @click="refresh_all"> Refresh All</a></h5>
         <h5>List of my items:</h5>
 	  	<div v-for="item in item_list">
-	  		<div class="card" style="width: 350px;">
+	  		<div class="card">
 			  <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">
 			  <div class="card-body">
 			    <h5 class="card-title">Item: ${item.name}</h5>

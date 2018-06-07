@@ -3,6 +3,13 @@
 /*header.black.padded{
 	margin-top:15px;
 }*/
+header.black.padded {
+    max-height: 50px;
+}
+
+video#bgvid {
+    width: 100vw;
+}
 
 .container.padded.max900 {
 	bottom: 0;
@@ -14,18 +21,27 @@
 	height:100vh;
 }
 .container#info{
-	top:50%;
+	width: 100%;
 }
 
+.row {
+     margin-right: -15px; 
+     margin-left: -15px; 
+}
+
+.col-md-offset-1 {
+    margin-left: -3.83% !important;
+}
+
+.col-md-10 {
+    width: 107.83%;
+}
 .main_content{
 	margin-top:20px;
-	margin-left: 20px;
-	margin-right: 20px;
 }
 
 div#site-loader{
 	/*display:none;*/
-	max-width: 80vw;
 	max-height: 65vh;
 	margin:auto;
 	overflow: auto;
@@ -33,7 +49,6 @@ div#site-loader{
 	border-radius: 10px;
 	width:auto;
 	height:auto;
-	position:relative;
 }
 .col-md-1 {
     width: 100%;
@@ -44,7 +59,13 @@ div#site-loader{
 .card{
 	border:1px solid lightblue;
 	padding:10px;
+	width: auto;
 }
+
+video#bgvid{
+	position:relative;
+}
+
 
 /*Search bar*/
 @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
@@ -133,4 +154,13 @@ body {
 .btn-wzd {
   font-size: 2em;
   color: #000;
+}
+
+input:not([type]), input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]), [type=file]:before {
+    outline: none;
+    padding: 0.5em 1em;
+    margin: 0.5px;
+    border-bottom: 1px solid #ddd;
+    width: 60%;
+    margin-left: 20%;
 }
