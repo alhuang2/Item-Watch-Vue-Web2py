@@ -7,6 +7,7 @@
 	var get_items_url = "{{=URL('api', 'get_my_items', user_signature=True)}}";
 	var html_string_url = "{{=URL('api', 'queryHTML')}}"
   var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
+  var delete_item_url = "{{=URL('api', 'delete_item', user_signature=True)}}";
 </script>
 {{end}}
 
@@ -53,6 +54,7 @@
 			    <p class="card-text">${item.url}</p>
 			    <p class="card-text">${item.element}</p>
 			    <a href="#" class="btn btn-primary" v-on:click = "parseURI(item.url)">Refresh <i class = "fa fa-refresh"> </i> </a>
+          <a href="#" class="btn btn-secondary" v-on:click = delete_item(item.id) > Delete <i class="fa fa-trash" > </i> </a>
 			  </div>
 			</div>
 	  	</div>

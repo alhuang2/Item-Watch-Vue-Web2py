@@ -89,7 +89,11 @@ var app = function() {
         console.log(parser.host);
 
 
-        var string = parser.protocol + parser.hostname;
+        if(parser.protocol == '') {
+            return parser.hostname;
+        }
+
+        var string = parser.protocol +'//' + parser.hostname;
         return string;
 
 
@@ -191,6 +195,21 @@ var app = function() {
             });
     };
 
+
+    self.delete_item = function(id) {
+        console.log("the db id is : " + id);
+        $.post(delete_item_url, 
+            {
+                id: id
+            },
+            function(data) {
+                console.log(data);
+            }
+        );
+
+        self.get_items();
+    }
+
     //httpGet("https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2");
     // Complete as needed.
     self.vue = new Vue({
@@ -219,7 +238,7 @@ var app = function() {
             linkSubmit: self.linkSubmit,
             toggle_select: self.toggle_select,
             get_items: self.get_items,
-            parseURI: self.parseURI
+            delete_item: self.delete_item
         },
         mounted: function(){
             self.get_items();

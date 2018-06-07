@@ -1,23 +1,5 @@
 # Here go your api methods.
 
-#push the url, name, and the element to be tracked into the DB
-def choose_element():
-
-	# element = request.vars.track_element
-	# url = request.vars.track_url
-	# name = request.vars.item_name
-
-
-	# tracker = db.stocklist.insert(
-	# 	item = name,
-	# 	tracking_url = url,
-	# 	tracking_elem = element
-	# )
-
-	logger.info(tracker)
-
-	return ("OK");
-
 
 @auth.requires_signature()
 def get_my_items():
@@ -78,6 +60,38 @@ def queryHTML():
 def verify(element):
 	logger.info("Verify does nothing right now")
 	return "200"
+
+
+@auth.requires_signature()
+def delete_item():
+	item_id = request.vars.id
+	
+
+	item = db(db.stocklist.id == item_id).select().first();
+	logger.info("before delete");
+	logger.info(item);
+
+
+	db(db.stocklist.id == item_id).delete();
+
+	item = db(db.stocklist.id == item_id).select().first();
+
+	logger.info("after delete");
+	logger.info(item);
+
+	if item is None:
+		return ("error");
+
+	item.delete();
+
+	return ("OK")
+
+
+
+
+
+
+
 
 # def find_tag(element):
 # 	space_index = element.find(' ')
