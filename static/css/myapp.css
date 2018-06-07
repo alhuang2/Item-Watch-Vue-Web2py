@@ -9,6 +9,12 @@ header.black.padded {
 
 video#bgvid {
     width: 100vw;
+    position: relative;
+    z-index: 0;
+}
+
+a#get-started{
+	color:white;
 }
 
 .container.padded.max900 {
@@ -71,12 +77,8 @@ div#get-started-overlay{
 	text-align:center;
 	font-size: 500%;
 	cursor: pointer;
-}
-
-div#get-started-overlay{
 	z-index:10;
 }
-
 
 /*Search bar*/
 @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
