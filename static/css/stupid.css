@@ -244,7 +244,7 @@ input:invalid, input.error, textarea:invalid, textarea.error {background: #ffdfd
 }
 
 /**** underline effect ***/
-a:not(.btn):not(.noeffect) {position:relative}
+/*a:not(.btn):not(.noeffect) {position:relative}
 a:not(.btn):not(.noeffect):hover {color:#26a69a}
 a:not(.btn):not(.noeffect):hover:after {width:100%}
 a:not(.btn):not(.noeffect):after {
@@ -257,7 +257,7 @@ a:not(.btn):not(.noeffect):after {
   background-color:#26a69a;
   content:"";
   transition:width 0.2s;
-}
+}*/
 
 /**** modal ***/
 .modal {

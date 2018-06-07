@@ -2,7 +2,6 @@
 
 var app = function() {
     var self = {};
-
     Vue.config.silent = false; // show all warnings
 
     var enumerate = function(v) { var k=0; return v.map(function(e) {e._idx = k++;});};
@@ -24,11 +23,12 @@ var app = function() {
             dataType: "html",
             crossDomain: true,
             success: function (data) {
+                console.log("Success");
                 processData(data);
             },
             error: function(data) {
-                var url = parseURI(self.vue.url);
-                self.vue.favicon_url = url + '/favicon.ico';
+                console.log("Errored" + data);
+                processData(data);
             }
         });
     }
@@ -39,18 +39,32 @@ var app = function() {
         self.vue.html_data = data
         //$('#site-loader').contents().find('body').html(data);
         $("#site-loader").html(data);
-        console.log("url: " + self.vue.url);
-        var editedURL = self.vue.url.substring(8);
-        console.log("editedURL: " + editedURL);
-        var end_index = editedURL.search(".com/");
-        console.log(end_index);
-        var favicon = self.parseURI(self.vue.url);
+        var url = self.parseURI(self.vue.url);
+        self.vue.favicon_url = url + '/favicon.ico';
+        // console.log("url: " + self.vue.url);
+        // var editedURL = self.vue.url.substring(8);
+        // console.log("editedURL: " + editedURL);
+        // var end_index = editedURL.search(".com/");
+        // console.log(end_index);
+        // var favicon = self.parseURI(self.vue.url);
 
-        console.log("favicon: ", favicon);
-        self.vue.favicon_url = editedURL.substring(0, end_index+5);
-        console.log("Substring: " + self.vue.favicon_url);
-        self.vue.favicon_url = 'https://' + self.vue.favicon_url + "favicon.ico";
-        console.log("Favicon url: " + self.vue.favicon_url);
+        // console.log("favicon: ", favicon);
+        // self.vue.favicon_url = editedURL.substring(0, end_index+5);
+        // console.log("Substring: " + self.vue.favicon_url);
+        // self.vue.favicon_url = 'https://' + self.vue.favicon_url + "favicon.ico";
+        // console.log("Favicon url: " + self.vue.favicon_url);
+        $("#site-loader").click(function(event) {
+                self.vue.elem = (event.target).outerHTML;
+                self.vue.innerHTML = (event.target).innerHTML;
+                self.vue.elem_id = (event.target).id;
+                self.vue.elem_tag = (event.target).localName;
+                self.vue.elem_className = (event.target).className;
+                console.dir(event.target);
+                /* $("#site-loader").hover(function(){
+                   $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
+                }); */
+            });
+        $('#site-loader').show();
     }
 
     function queryHTMLdocument(htmlString, element, innerHTML, id, tag, className){
@@ -98,15 +112,6 @@ var app = function() {
 
 
     }
-
-
-
-
-
-
-
-
-    //TODO for @jaisal: put outerHTML (the element) into the database.
     self.toggle_select = function(){
         self.vue.is_selecting = !self.vue.is_selecting;
         if(self.vue.is_selecting){

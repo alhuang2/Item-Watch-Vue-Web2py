@@ -10,16 +10,10 @@
   var check_item_url = "{{=URL('api', 'verify')}}"
 	var delete_item_url = "{{=URL('api', 'delete_item', user_signature=True)}}";
 </script>
-{{end}}
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap-wizard/1.2/jquery.bootstrap.wizard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap-wizard/1.2/jquery.bootstrap.wizard.min.js"></script>
+{{end}}
 
 <title>183 Project</title>
 <div class="main_content">
@@ -32,25 +26,104 @@
          <h5>Log in to save and keep track of your most wanted items!</h5>
 
          {{else:}}
+         <div class="container" id="info">
+            <div class="row">
+              <div class="col-md-12">
+                <div id="wizard">
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <!-- STEP 1 -->
+                    <div role="tabpanel" class="tab-pane active" id="step1">
+                      <!-- Progress at step -->
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                          <span class="sr-only">25% Complete</span>
+                        </div>
+                      </div>
+                      <!-- Step Title -->
+                      <h1 class="text-center">Enter your page URL</h1>
+                      <!-- Step content -->
+                      <div id="wzd-content" class="col-md-offset-1 col-md-10">
+                        <div id="wrap">
+                          <input id="search" type="text" placeholder="Enter URL" v-model="url" @blur="linkSubmit()"><input id="search_submit" type="button">
+                        </div>
+                      </div>
+                      <!-- Step navigation controls -->
+                      <div id="wzd-nav" class="row">
+                        <div id="nav-controls" class="col-md-offset-10 col-md-2">
+                          <a class="btn btn-wzd disabled nav-previous" href="#step1" aria-controls="step1" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                          <a class="btn btn-wzd nav-next" href="#step2" aria-controls="step1" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END STEP 1 -->
+                    <div role="tabpanel" class="tab-pane" id="step2">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                          <span class="sr-only">50% Complete</span>
+                        </div>
+                      </div>
+                      <!-- Step title -->
+                      <h1 class="text-center">Please Select the Element to Track</h1>
+                      <!-- Step content -->
+                      <div id="wzd-content" class="col-md-offset-1 col-md-10">
+                        <div class="col-md-1">
+          <!--                 <button type="button"  @click="toggle_select()" >Turn On Select Mode</button>
+                          <button type="button"  @click="toggle_select()" >Turn Off Select Mode</button>    -->            
+                          <div id="site-loader"><body>Hello</body></div>
+                        </div>
 
-         <br>
-         <h5>Post a link to a singular item:
-         <button class="btn btn-success" v-on:click="add_item_button()"><i class="fa fa-plus"></i> Add Item</button></h5>
-
-         <div>Testing url: https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2</div>
-	  	 <form v-if="is_adding_item" action="#" v-on:submit.prevent="add_item()" class="form-horizontal" enctype="multipart/form-data" method="post">
-            <h6>Name of item:</h6>
-            <input type="text" v-model="name" placeholder="Nvidia GTX 1070">
-            <h6>Url to item</h6>
-	  		<input type="text" v-model="url" @blur="linkSubmit" placeholder="https://www.newegg.com">
-			<button type="button" v-if="!is_selecting && link_submitted" @click="toggle_select()" >Turn On Select Mode</button>
-			<button type="button" v-if="is_selecting && link_submitted" @click="toggle_select()" >Turn Off Select Mode</button>
-	  		<input class="btn btn-primary" id="add_item_submit" type="submit" value="Submit" />
-	  	</form>
-
-	  	<div id="site-loader"><body></body></div>
-
-        <h5>Check for changes in all my items: <a class="btn btn-secondary && fa fa-refresh"> Refresh All</a></h5>
+                      </div>
+                      <!-- Step navigation controls -->
+                      <div id="wzd-nav" class="row">
+                        <div id="nav-controls" class="col-md-offset-10 col-md-2">
+                          <a class="btn btn-wzd nav-previous" href="#step1" aria-controls="step1" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                          <a class="btn btn-wzd nav-next" href="#step3" aria-controls="step3" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="step3">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+                          <span class="sr-only">75% Complete</span>
+                        </div>
+                      </div>
+                      <!-- Step title -->
+                      <h1 class="text-center">What is the name of your element</h1>
+                      <!-- Step content -->
+                      <div id="wzd-content" class="col-md-offset-1 col-md-10">
+                        <input type="text" v-model="name" placeholder="Bear">
+                      </div>
+                      <!-- Step navigation controls -->
+                      <div id="wzd-nav" class="row">
+                        <div id="nav-controls" class="col-md-offset-10 col-md-2">
+                          <a class="btn btn-wzd nav-previous" href="#step2" aria-controls="step2" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                          <a class="btn btn-wzd nav-next" href="#step4" @click="add_item()" aria-controls="step4" role="tab" data-toggle="tab"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="step4">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                          <span class="sr-only">100% Complete</span>
+                        </div>
+                      </div>
+                      <h1 class="text-center">Thank you!</h1>
+                      <p class="text-center"><i class="zmdi zmdi-check-all zmdi-hc-5x"></i></i></p>
+                      <!-- Step navigation controls -->
+                      <div id="wzd-nav" class="row">
+                        <div id="nav-controls" class="col-md-offset-10 col-md-2">
+                          <a class="btn btn-wzd nav-next" href="#step1" aria-controls="step1" role="tab" data-toggle="tab"><i class="fa fa-plus"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      <div id="show-items">
+        <h5>Check for changes in all my items: <a class="btn btn-secondary && fa fa-refresh" @click="refresh_all"> Refresh All</a></h5>
         <h5>List of my items:</h5>
 	  	<div v-for="item in item_list">
 	  		<div class="card" style="width: 350px;">
@@ -61,17 +134,37 @@
 			    <p class="card-text">Item tag: ${item.element}</p>
                 <div class="button-list">
                     <a href="#" class="btn btn-secondary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</a>
-                    <!-- write delete function -->
                     <a href="#" class="btn btn-danger && fa fa-trash" @click="delete_item(item.id)"> Delete</a>
-                    <!-- write edit function -->
                     <a href="#" class="btn btn-primary && fa fa-edit" @click="edit_one(item._idx)"> Edit</a>
                 </div>
 			  </div>
 			</div>
 	  	</div>
+    </div>
         {{pass}}
 	  </div>
   </div>
 </div>
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
+        <!-- <div id="wrap">
+          <input id="search" type="text" placeholder="Enter URL"><input id="search_submit" type="button">
+        </div> -->
+
+         <!-- <br>
+         <h5>Post a link to a singular item:
+         <button class="btn btn-success" v-on:click="add_item_button()"><i class="fa fa-plus"></i> Add Item</button></h5>
+
+         <div>Testing url: https://computers.woot.com/offers/hp-omen-870-intel-i7-gtx1070-desktop-2</div>
+       <form v-if="is_adding_item" action="#" v-on:submit.prevent="add_item()" class="form-horizontal" enctype="multipart/form-data" method="post">
+            <h6>Name of item:</h6>
+            <input type="text" v-model="name" placeholder="Nvidia GTX 1070">
+            <h6>Url to item</h6>
+        <input type="text" v-model="url" @blur="linkSubmit" placeholder="https://www.newegg.com">
+        <input id="search" type="text" placeholder="Enter URL"><input id="search_submit" type="button">
+      <button type="button" v-if="!is_selecting && link_submitted" @click="toggle_select()" >Turn On Select Mode</button>
+      <button type="button" v-if="is_selecting && link_submitted" @click="toggle_select()" >Turn Off Select Mode</button>
+        <input class="btn btn-primary" id="add_item_submit" type="submit" value="Submit" />
+      </form>
+
+      <div id="site-loader"><body></body></div>-->
