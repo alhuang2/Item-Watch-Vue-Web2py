@@ -6,8 +6,8 @@
 	var choose_element_url = "{{=URL('api', 'choose_element')}}";
 	var get_items_url = "{{=URL('api', 'get_my_items', user_signature=True)}}";
 	var html_string_url = "{{=URL('api', 'queryHTML')}}"
-  var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
-  var check_item_url = "{{=URL('api', 'verify')}}"
+    var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
+    var check_item_url = "{{=URL('api', 'verify')}}"
 	var delete_item_url = "{{=URL('api', 'delete_item', user_signature=True)}}";
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -130,11 +130,11 @@
 			  <div class="card-body">
 			    <h5 class="card-title">Item: ${item.name}</h5>
 			    <p class="card-text">URL: ${item.url}</p>
-			    <p class="card-text">Item tag: ${item.element}</p>
+			    <p class="card-text">${item.element}</p>
                 <div class="button-list">
                     <a href="#" class="btn btn-secondary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</a>
                     <a href="#" class="btn btn-danger && fa fa-trash" @click="delete_item(item.id)"> Delete</a>
-                    <a href="#" class="btn btn-primary && fa fa-edit" @click="edit_one(item._idx)"> Edit</a>
+                    <!-- <a href="#" class="btn btn-primary && fa fa-edit" @click="edit_item(item._idx)"> Edit</a> -->
                 </div>
 			  </div>
 			</div>
