@@ -1,6 +1,6 @@
 # Here go your api methods.
 import json
-
+import urllib
 
 @auth.requires_signature()
 def get_my_items():
@@ -73,7 +73,6 @@ def verify():
 	logger.info("Tracking elem \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 	logger.info(request.vars.tracking_elem)
 	logger.info(result == request.vars.tracking_elem)
-	logger.info('<b><div style="display:block;text-align:left"><br/></div>How to graph Sines and Cosines</b>' == '<b><div style="display:block;text-align:left"><br></div>How to graph Sines and Cosines</b>')
 	if result == None:
 		status = "changed"
 		return status

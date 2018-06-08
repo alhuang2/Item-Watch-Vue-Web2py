@@ -19,7 +19,7 @@ var app = function() {
           if (target.length) {
             // Only prevent default if animation is actually gonna happen
             event.preventDefault();
-            $('html, body').animate({
+            $('.black, .white').animate({
               scrollTop: target.offset().top
             }, 1000, function() {
               // Callback after animation
@@ -73,22 +73,13 @@ var app = function() {
     function processData(data){
         // console.log(data);
         self.vue.html_data = data
-        //$('#site-loader').contents().find('body').html(data);
+        '<object data="http://your-website-domain"/>'
+        var objectData = '<object data="' + self.vue.url + '"/>';
+        console.log(objectData);
         $("#site-loader").html(data);
+        $('#site-loader').off();
         var url = self.parseURI(self.vue.url);
         self.vue.favicon_url = url + '/favicon.ico';
-        // console.log("url: " + self.vue.url);
-        // var editedURL = self.vue.url.substring(8);
-        // console.log("editedURL: " + editedURL);
-        // var end_index = editedURL.search(".com/");
-        // console.log(end_index);
-        // var favicon = self.parseURI(self.vue.url);
-
-        // console.log("favicon: ", favicon);
-        // self.vue.favicon_url = editedURL.substring(0, end_index+5);
-        // console.log("Substring: " + self.vue.favicon_url);
-        // self.vue.favicon_url = 'https://' + self.vue.favicon_url + "favicon.ico";
-        // console.log("Favicon url: " + self.vue.favicon_url);
         $("#site-loader").click(function(event) {
                 self.vue.elem = (event.target).outerHTML;
                 self.vue.innerHTML = (event.target).innerHTML;
@@ -240,7 +231,7 @@ var app = function() {
                 self.vue.url = '';
                 self.get_items(); // write this method
             });
-            $('#site-loader').hide();
+            $('#site-loader').empty();
     };
 
     self.refresh_one = function(idx){
