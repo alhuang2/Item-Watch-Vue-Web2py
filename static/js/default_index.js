@@ -75,6 +75,10 @@ var app = function() {
         self.vue.html_data = data
         //$('#site-loader').contents().find('body').html(data);
         $("#site-loader").html(data);
+        $('#site-loader').find('input, textarea, button, select').attr('disabled','true');
+        $("#site-loader").find("a").addClass("disablehyper").click(function (e) {                
+    e.preventDefault();
+});
         var url = self.parseURI(self.vue.url);
         self.vue.favicon_url = url + '/favicon.ico';
         // console.log("url: " + self.vue.url);
