@@ -152,31 +152,78 @@ var app = function() {
         self.vue.is_selecting = !self.vue.is_selecting;
         if(self.vue.is_selecting){
             $("#site-loader").show();
+            /* $("#site-loader").click(function(e){
+                e.preventDefault();
+                return false;
+            }); */
             $("#site-loader").click(function(event) {
+                /*
+                   First attempt at preventing redirecting on pressing a link
+                   Should prevent default action the uploading link (i.e. pressable
+                   link in page shouldn't redirect)
+                */
+                event.preventDefault();
+                /*
+                    Second attempt at preventing redirecting on pressing a link
+                */
+                // event.stopImmediatePropagation();
+
                 self.vue.elem = (event.target).outerHTML;
                 self.vue.innerHTML = (event.target).innerHTML;
                 self.vue.elem_id = (event.target).id;
                 self.vue.elem_tag = (event.target).localName;
                 self.vue.elem_className = (event.target).className;
                 console.dir(event.target);
-                /* $("#site-loader").hover(function(){
-                   $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
-                }); */
+                
+                // Third attempt at preventing redirecting on pressing a link
+                /* document.getElementById('elem').contentWindow.document.body.onclick = function () {
+                    return false;
+                }; */
+                // (event.target).preventDefault();
             });
-            $("#site-loader").hover(function(){
-                $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
+            // First attempt on getting element boxed upon hovering
+            $("#site-loader").hover(function(event){
+                var $tgt = (event.target);
+                if(!tgt.closest('.syntax_hilite').length){
+                    ($tgt).toggleClass(event.type == 'click' ? 'outline-element-clicked' : 'outline-element');
+                }
+                /*
+                   Second attempt on getting element boxed upon hovering
+                   Comment out code from declaration of var $tgt to end of if statement
+                */
+                /* $(".mouseover-box").removeClass("mouseover-box");
+                $(event.target).addClass("mouseover-box");
+                return false;
+            }).mouseleave(function(event){
+                $(event.target).removeClass("mouseover-box"); */
             });
-                //debugging
-                // var outerHTML = (event.target).outerHTML;
-                // var innerHTML = (event.target).innerHTML;
-                // var id = (event.target).id;
-                // var tag = (event.target).localName;
-                // var className = (event.target).className;
-                // console.log("innerHTML = " +  innerHTML + '\n' +
-                //     "id: " + id + '\n' +
-                //     'tag: ' +  tag + '\n' +
-                //     'className: ' + className);
-                //queryHTMLdocument(self.vue.html_data, outerHTML, innerHTML, id, tag, className);
+
+            /* CSS for above code is in myapp.css */
+
+            /* reference code for boxing an element on hovering:
+
+            JS:
+
+            $(document).ready(function() {
+                $('.entrytext').bind('mouseover mouseout click', function(event) {
+                    var $tgt = $(event.target);
+                    if (!$tgt.closest('.syntax_hilite').length) {
+                        $tgt.toggleClass(event.type == 'click' ? 'outline-element-clicked' : 'outline-element');
+                    }
+                });
+            });
+
+            CSS:
+
+            .outlineElement {
+                outline: 1px solid #c00;
+            }
+
+            .outlineElementClicked {
+                outline: 1px solid #0c0;
+            }
+
+            */
         }
         else{
             $("#site-loader").hide();
