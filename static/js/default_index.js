@@ -261,10 +261,12 @@ var app = function() {
                     innerHTML: self.vue.item_list[idx].innerHTML,
                     id: self.vue.item_list[idx].id,
                     tracking_elem: self.vue.item_list[idx].tracking_elem,
-                    htmlString: data
+                    htmlString: data,
+                    url: self.vue.item_list[idx].url
                 },
                 function(response){
                     console.log(response);
+                    self.vue.item_list[idx].in_stock = response
                 })
             }
         });

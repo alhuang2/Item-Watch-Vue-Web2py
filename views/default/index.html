@@ -6,8 +6,8 @@
 	var choose_element_url = "{{=URL('api', 'choose_element')}}";
 	var get_items_url = "{{=URL('api', 'get_my_items', user_signature=True)}}";
 	var html_string_url = "{{=URL('api', 'queryHTML')}}"
-  var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
-  var check_item_url = "{{=URL('api', 'verify')}}"
+    var add_item_url = "{{=URL('api', 'add_item', user_signature=True)}}";
+    var check_item_url = "{{=URL('api', 'verify')}}"
 	var delete_item_url = "{{=URL('api', 'delete_item', user_signature=True)}}";
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -125,12 +125,14 @@
         <h5>Check for changes in all my items: <a class="btn btn-secondary && fa fa-refresh" @click="refresh_all"> Refresh All</a></h5>
         <h5>List of my items:</h5>
         <div class= "container" >
-    	  	<div v-for="item in item_list" class="link_list quarter" >
+    	  	<div v-for="item in item_list" class="link_list quarter">
     	  		<div class="card">
+                <!-- <div v-if="item.in_stock" class="card" style = "background-color: #2E8B57"> -->
+                <!-- <div v-else class = "card" style = "background-color: #FF2400" > -->
     			  <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">
     			  <div class="card-body ">
     			    <h5 class="card-title">Item: ${item.name}</h5>
-    			    <p class="card-text">URL: ${item.url}</p>
+    			    <!-- <p class="card-text">URL: ${item.url}</p> -->
     			    <p class="card-text">Item tag: ${item.element}</p>
                     <div class="button-list">
                         <a href="#" class="btn btn-secondary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</a>

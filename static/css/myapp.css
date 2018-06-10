@@ -68,6 +68,7 @@ div#site-loader{
 	width: auto;
   word-wrap: break-word;
   height: auto;
+  /*background-color: #FF2400;*/
 }
 
 div#get-started-overlay{

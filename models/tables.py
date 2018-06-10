@@ -21,7 +21,8 @@ db.define_table('stocklist',
                 Field('elem_tag'),
                 Field('elem_id'),
                 Field('elem_classname'),
-            	Field('elem_innerHTML')
+            	Field('elem_innerHTML'),
+                Field('in_stock', default = False)
                 )
 
 db.stocklist.user_email.writable = False
