@@ -63,11 +63,11 @@ div#site-loader{
 /*ITEM LIST CSS*/
 
 .card{
-	border:1px solid lightblue;
-	padding:10px;
-	width: auto;
-  word-wrap: break-word;
-  height: auto;
+	border:1px solid lightblue !important;  
+	padding:10px !important;
+	width: auto !important;
+  word-wrap: break-word !important;
+  height: auto !important;
   /*background-color: #FF2400;*/
 }
 

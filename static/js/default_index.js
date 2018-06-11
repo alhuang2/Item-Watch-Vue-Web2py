@@ -67,6 +67,13 @@ var app = function() {
                 processData(data);
             }
         });
+        $("#site-loader").find("input, button, submit, textarea, select").attr("disabled", "disabled");
+        $("#show-items").find("input, button, submit, textarea, select").attr("disabled", "disabled");
+
+        $("#show-items").find("a").addClass("disablehyper").click(function (e) {                
+    e.preventDefault();
+});
+        console.log("container disabled");
     }
 
     //Takes in HTML string.
