@@ -77,8 +77,8 @@ var app = function() {
         $("#site-loader").html(data);
         $('#site-loader').find('input, textarea, button, select').attr('disabled','true');
         $("#site-loader").find("a").addClass("disablehyper").click(function (e) {                
-    e.preventDefault();
-});
+            e.preventDefault();
+        });
         var url = self.parseURI(self.vue.url);
         self.vue.favicon_url = url + '/favicon.ico';
         // console.log("url: " + self.vue.url);
