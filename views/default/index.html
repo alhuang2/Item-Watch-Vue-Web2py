@@ -132,12 +132,12 @@
     			  <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">
     			  <div class="card-body ">
     			    <h5 class="card-title">Item: ${item.name}</h5>
-    			    <!-- <p class="card-text">URL: ${item.url}</p> -->
-    			    <p class="card-text">Item tag: ${item.element}</p>
+    			    <p class="card-text">URL: ${item.url}</p>
+    			    <!-- <p class="card-text">Item tag: ${item.element}</p> -->
                     <div class="button-list">
                         <a href="#" class="btn btn-secondary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</a>
                         <a href="#" class="btn btn-danger && fa fa-trash" @click="delete_item(item.id)"> Delete</a>
-                        <a href="#" class="btn btn-primary && fa fa-edit" @click="edit_one(item._idx)"> Edit</a>
+                        <!-- <a href="#" class="btn btn-primary && fa fa-edit" @click="edit_one(item._idx)"> Edit</a> -->
                     </div>
     			  </div>
     			</div>
