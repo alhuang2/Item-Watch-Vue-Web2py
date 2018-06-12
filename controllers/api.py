@@ -32,13 +32,15 @@ def get_my_items():
 
 def add_item():
 
+	logger.info(request.vars.elem_className)
+
 	s_id = db.stocklist.insert(
 		item=request.vars.name,
 		tracking_url=request.vars.url,
 		tracking_elem=request.vars.elem,
 		elem_id=request.vars.elem_id,
 		elem_tag=request.vars.elem_tag,
-		elem_classname=request.vars.elem_classname,
+		elem_classname=request.vars.elem_className,
 		elem_innerHTML=request.vars.elem_innerHTML,
 		favicon_url=request.vars.favicon_url,
 		)
@@ -83,27 +85,40 @@ def verify():
 
 
 
-	import urllib2
+	import urllib2, re
 	response = urllib.urlopen(request.vars.url)
 	htmlString = response.read();
-	query = "In Stock."
+
+	# query = "Unavailable."
+
+	# found = htmlString.find(query);
+
+	query = request.vars.innerHTML
+	# query = '(.)*' + request.vars.innerHTML + '$'
+	logger.info(query)
+
+	# query = "In Stock."
+	# query = "In Stock.$"
+	# found = re.search(query, htmlString)
 	found = htmlString.find(query)
 
-
-
+	logger.info("found\n\n\n\n\n\n\n")
+	logger.info(found)
+	logger.info(request.vars.innerHTML)
+	# logger.info(request.vars)
 
 	status = ""
 	result = None
 	# soup = BeautifulSoup(request.vars.htmlString, "html.parser")
 	soup = BeautifulSoup(htmlString, "html.parser")
-	result = soup.find(request.vars.tag, id=request.vars.elem_id, text=request.vars.innerHTML)
+	result = soup.find(request.vars.tag, id=request.vars.elem_id, text=request.vars.innerText)
 	logger.info("RESULT \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 	logger.info(result)
-	logger.info(request.vars.elem_id)
-	logger.info("Tracking elem \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+	# logger.info(request.vars.elem_id)
+	# logger.info("Tracking elem \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 	logger.info(request.vars.tracking_elem)
 	logger.info(result == request.vars.tracking_elem)
-	logger.info('<b><div style="display:block;text-align:left"><br/></div>How to graph Sines and Cosines</b>' == '<b><div style="display:block;text-align:left"><br></div>How to graph Sines and Cosines</b>')
+	# logger.info('<b><div style="display:block;text-align:left"><br/></div>How to graph Sines and Cosines</b>' == '<b><div style="display:block;text-align:left"><br></div>How to graph Sines and Cosines</b>')
 	logger.info("found: \n\n\n\n\n\n")
 	logger.info(found)
 	# if result == None:

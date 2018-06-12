@@ -67,13 +67,6 @@ var app = function() {
                 processData(data);
             }
         });
-        $("#site-loader").find("input, button, submit, textarea, select").attr("disabled", "disabled");
-        $("#show-items").find("input, button, submit, textarea, select").attr("disabled", "disabled");
-
-        $("#show-items").find("a").addClass("disablehyper").click(function (e) {                
-    e.preventDefault();
-});
-        console.log("container disabled");
     }
 
     //Takes in HTML string.
@@ -102,11 +95,13 @@ var app = function() {
         // console.log("Favicon url: " + self.vue.favicon_url);
         $("#site-loader").click(function(event) {
                 self.vue.elem = (event.target).outerHTML;
-                self.vue.innerHTML = (event.target).innerHTML;
+                self.vue.elem_innerHTML = (event.target).innerHTML;
                 self.vue.elem_id = (event.target).id;
                 self.vue.elem_tag = (event.target).localName;
                 self.vue.elem_className = (event.target).className;
                 console.dir(event.target);
+                console.log(event.target.className);
+
                 /* $("#site-loader").hover(function(){
                    $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
                 }); */
@@ -180,11 +175,13 @@ var app = function() {
                 // event.stopImmediatePropagation();
 
                 self.vue.elem = (event.target).outerHTML;
-                self.vue.innerHTML = (event.target).innerHTML;
+                // self.vue.innerHTML = (event.target).innerHTML;
+                self.vue.innerHTML = (event.target).innerText;
                 self.vue.elem_id = (event.target).id;
                 self.vue.elem_tag = (event.target).localName;
                 self.vue.elem_className = (event.target).className;
                 console.dir(event.target);
+                console.log(event.target.className);
                 
                 // Third attempt at preventing redirecting on pressing a link
                 /* document.getElementById('elem').contentWindow.document.body.onclick = function () {
@@ -278,6 +275,7 @@ var app = function() {
         var url = self.parseURI(self.vue.url);
         self.vue.favicon_url = url + '/favicon.ico';
         console.log("Favicon url in add_item " + self.vue.favicon_url);
+        console.log(self.vue.elem_className);
         $.post(add_item_url,
             {
                 name: self.vue.name,
