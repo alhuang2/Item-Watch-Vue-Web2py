@@ -8,8 +8,8 @@ var app = function() {
       .click(function(event) {
         // On-page links
         if (
-          location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-          && 
+          location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+          &&
           location.hostname == this.hostname
         ) {
           // Figure out element to scroll to
@@ -77,16 +77,21 @@ var app = function() {
         var objectData = '<object data="' + self.vue.url + '"/>';
         console.log(objectData);
         $("#site-loader").html(data);
-        $('#site-loader').off();
+        $('#site-loader').find('input, textarea, button, select').attr('disabled','true');
+        $("#site-loader").find("a").addClass("disablehyper").click(function (e) {
+            e.preventDefault();
+        });
         var url = self.parseURI(self.vue.url);
         self.vue.favicon_url = url + '/favicon.ico';
         $("#site-loader").click(function(event) {
                 self.vue.elem = (event.target).outerHTML;
-                self.vue.innerHTML = (event.target).innerHTML;
+                self.vue.elem_innerHTML = (event.target).innerHTML;
                 self.vue.elem_id = (event.target).id;
                 self.vue.elem_tag = (event.target).localName;
                 self.vue.elem_className = (event.target).className;
                 console.dir(event.target);
+                console.log(event.target.className);
+
                 /* $("#site-loader").hover(function(){
                    $('self.vue.elem_id').css({'color': 'yellow', 'background-color': 'black'});
                 }); */
@@ -160,12 +165,14 @@ var app = function() {
                 // event.stopImmediatePropagation();
 
                 self.vue.elem = (event.target).outerHTML;
-                self.vue.innerHTML = (event.target).innerHTML;
+                // self.vue.innerHTML = (event.target).innerHTML;
+                self.vue.innerHTML = (event.target).innerText;
                 self.vue.elem_id = (event.target).id;
                 self.vue.elem_tag = (event.target).localName;
                 self.vue.elem_className = (event.target).className;
                 console.dir(event.target);
-                
+                console.log(event.target.className);
+
                 // Third attempt at preventing redirecting on pressing a link
                 /* document.getElementById('elem').contentWindow.document.body.onclick = function () {
                     return false;
@@ -221,21 +228,6 @@ var app = function() {
         }
     }
 
-    self.choose_element = function (element, name) {
-        self.vue.element_chosen = element;
-
-        $.post(choose_element_url,
-            {
-                element:element,
-                name:name
-            },
-            function(data) {
-                console.log("element added to db");
-            }
-
-        );
-    }
-
 
     self.get_items = function ()
     {
@@ -258,6 +250,7 @@ var app = function() {
         var url = self.parseURI(self.vue.url);
         self.vue.favicon_url = url + '/favicon.ico';
         console.log("Favicon url in add_item " + self.vue.favicon_url);
+        console.log(self.vue.elem_className);
         $.post(add_item_url,
             {
                 name: self.vue.name,
@@ -299,10 +292,12 @@ var app = function() {
                     innerHTML: self.vue.item_list[idx].innerHTML,
                     id: self.vue.item_list[idx].id,
                     tracking_elem: self.vue.item_list[idx].tracking_elem,
-                    htmlString: data
+                    htmlString: data,
+                    url: self.vue.item_list[idx].url
                 },
                 function(response){
                     console.log(response);
+                    self.vue.item_list[idx].in_stock = response
                 })
             }
         });
