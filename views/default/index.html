@@ -128,12 +128,12 @@
         <div class= "container" >
     	  	<div v-for="item in item_list" class="link_list quarter">
     	  		<!-- <div class="card"> -->
-                <div v-if="item.in_stock" class="card" style = "background: linear-gradient(to top, #ff9999 0%, #ff0000 100%);">
+                <div v-if="item.in_stock== 'True' " class="card" style = "background: linear-gradient(to top, #ff9999 0%, #ff0000 100%);">
                     <img class="card-img-top" v-bind:src="item.favicon_url" alt="Card image cap" style="margin:auto; display:block;">
                   <div class="card-body ">
                     <h5 class="card-title">${item.name}</h5>
                     <a id="hyperlinktag" rel="noopener noreferrer" target="_blank" v-bind:href="item.url">Go to URL</a>
-                    <p class="card-text">Element has not changed</p>
+                    <!-- <p class="card-text">Element has not changed</p> -->
                     <div class="button-list">
                         <button class="btn btn-secondary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</button>
                         <button class="btn btn-danger && fa fa-trash" @click="delete_item(item.id)"> Delete</button>
@@ -147,7 +147,7 @@
     			  <div class="card-body ">
     			    <h5 class="card-title">${item.name}</h5>
     			    <a id="hyperlinktag" rel="noopener noreferrer" target="_blank" v-bind:href="item.url">Go to URL</a>
-              <p class="card-text">Element Changed!</p>
+              <!-- <p class="card-text">Element Changed!</p> -->
     			    <!-- <p class="card-text">Item tag: ${item.element}</p> -->
                     <div class="button-list">
                         <a href="#" class="btn btn-secondary && fa fa-refresh" @click="refresh_one(item._idx)"> Refresh</a>

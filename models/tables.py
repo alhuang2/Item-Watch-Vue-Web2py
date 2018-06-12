@@ -22,7 +22,7 @@ db.define_table('stocklist',
                 Field('elem_id'),
                 Field('elem_classname'),
             	Field('elem_innerHTML'),
-                Field('in_stock', default = False)
+                Field('in_stock', default = True)
                 )
 
 db.stocklist.user_email.writable = False
