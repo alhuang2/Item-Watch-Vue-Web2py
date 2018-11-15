@@ -15,8 +15,8 @@ Framework:
 
 ### Screenshots
 ![1](/screenshots/start_page.jpg?raw=true "1")
-![1](/screenshots/monitor-ss.jpg?raw=true "1")
-![1](/screenshots/luna-ss.jpg?raw=true "1")
-![1](/screenshots/elements-ss.jpg?raw=true "1")
+![1](/screenshots/monitor-ss.png?raw=true "1")
+![1](/screenshots/luna-ss.png?raw=true "1")
+![1](/screenshots/elements-ss.png?raw=true "1")
 
 
